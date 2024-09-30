@@ -1,0 +1,56 @@
+﻿@model IEnumerable<ST10361554_PROG6212_ICE_Task_5.Models.TicketModel>
+
+@{
+    ViewData["Title"] = "Tickets Index";
+}
+
+<h2>Tickets</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ticket ID</th>
+            <th>Movie Name</th>
+            <th>Showtime</th>
+            <th>Number of Tickets</th>
+            <th>Customer Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var ticket in Model)
+            {
+                <tr>
+                    <td>@ticket.Id</td>
+                    <td>@ticket.MovieTitle</td> <!-- Assuming there's a navigation property for Movie -->
+                    <td>@ticket.ShowTime?.ToString("f")</td> <!-- Use null-conditional operator -->
+                    <td>@ticket.NumberOfTickets</td>
+                    <td>@ticket.CustomerName</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">No tickets found.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-success">Create New Ticket</a>

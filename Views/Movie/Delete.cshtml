@@ -1,0 +1,29 @@
+﻿@model ST10361554_PROG6212_ICE_Task_5.Models.MovieModel
+
+<h2>Delete Movie</h2>
+
+<p>Are you sure you want to delete the following movie?</p>
+
+<div class="form-group">
+    <label>Movie Title:</label>
+    <p>@Model.Title</p>
+</div>
+
+<div class="form-group">
+    <label>Movie Genre:</label>
+    <p>@Model.Genre</p>
+</div>
+
+<div class="form-group">
+    <label>Movie Duration (Minutes):</label>
+    <p>@Model.Duration</p>
+</div>
+
+<br />
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>

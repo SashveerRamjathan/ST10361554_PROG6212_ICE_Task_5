@@ -1,0 +1,67 @@
+﻿@model List<MovieModel>
+
+@{
+    ViewData["Title"] = "Movies List";
+    string? messageInfo = ViewData["MessageInfo"] as string;
+    string? successMessage = ViewData["SuccessMessage"] as string;
+    string? errorMessage = ViewData["ErrorMessage"] as string;
+}
+
+<h2>Movies</h2>
+<br />
+<!-- Display any success or error messages -->
+@if (!string.IsNullOrEmpty(successMessage))
+{
+    <div class="alert alert-success">
+        @successMessage
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">
+        @errorMessage
+    </div>
+}
+
+<!-- Add New Movie Button -->
+<div class="mb-3">
+    <a asp-controller="Movie" asp-action="Create" class="btn btn-primary">Add New Movie</a>
+</div>
+
+<!-- If no movies are available, show the info message -->
+@if (!string.IsNullOrEmpty(messageInfo))
+{
+    <div class="alert alert-info">
+        @messageInfo
+    </div>
+}
+else
+{
+    <!-- Display the list of movies in a table format -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Movie Title</th>
+                <th>Genre</th>
+                <th>Duration (minutes)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var movie in Model)
+            {
+                <tr>
+                    <td>@movie.Title</td>
+                    <td>@movie.Genre</td>
+                    <td>@movie.Duration</td>
+                    <td>
+                        <!-- Actions: Edit and Delete buttons -->
+                        <a asp-controller="Movie" asp-action="Edit" asp-route-id="@movie.Id"  class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-controller="Movie" asp-action="Delete" asp-route-id="@movie.Id" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

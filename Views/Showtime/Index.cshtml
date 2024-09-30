@@ -1,0 +1,68 @@
+﻿@model List<ShowtimeModel>
+
+@{
+    ViewData["Title"] = "Showtimes List";
+    string? messageInfo = ViewData["MessageInfo"] as string;
+    string? successMessage = ViewData["SuccessMessage"] as string;
+    string? errorMessage = ViewData["ErrorMessage"] as string;
+}
+
+<h2>Showtimes</h2>
+<br />
+
+<!-- Display any success or error messages -->
+@if (!string.IsNullOrEmpty(successMessage))
+{
+    <div class="alert alert-success">
+        @successMessage
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">
+        @errorMessage
+    </div>
+}
+
+<!-- Add New Showtime Button -->
+<div class="mb-3">
+    <a asp-controller="Showtime" asp-action="Create" class="btn btn-primary">Add New Showtime</a>
+</div>
+
+<!-- If no showtimes are available, show the info message -->
+@if (!string.IsNullOrEmpty(messageInfo))
+{
+    <div class="alert alert-info">
+        @messageInfo
+    </div>
+}
+else
+{
+    <!-- Display the list of showtimes in a table format -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Movie Title</th>
+                <th>Showtime</th>
+                <th>Available Seats</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var showtime in Model)
+            {
+                <tr>
+                    <td>@showtime.MovieTitle</td>
+                    <td>@showtime.ShowTime.ToString("dd MMM yyyy, HH:mm")</td>
+                    <td>@showtime.AvailableSeats</td>
+                    <td>
+                        <!-- Actions: Edit and Delete buttons -->
+                        <a asp-controller="Showtime" asp-action="Edit" asp-route-id="@showtime.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-controller="Showtime" asp-action="Delete" asp-route-id="@showtime.Id" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

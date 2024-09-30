@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Login";
+    string? errorMessage = ViewData["ErrorMessage"] as string;
+}
+
+<h2>Admin Login</h2>
+<br />
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">
+        @errorMessage
+    </div>
+}
+
+<form asp-action="Login" method="post">
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" id="password" name="password" required />
+    </div>
+    <br />
+    <!-- Hidden input to preserve the return URL -->
+    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
+
+

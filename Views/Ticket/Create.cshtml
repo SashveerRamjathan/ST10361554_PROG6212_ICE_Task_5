@@ -1,0 +1,47 @@
+﻿@model ST10361554_PROG6212_ICE_Task_5.Models.TicketModel
+@{
+    ViewData["Title"] = "Create Ticket";
+}
+
+<h2>Create Ticket</h2>
+
+<div class="alert alert-info">
+    Please fill in the details below to create a ticket.
+</div>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="ShowtimeId" class="control-label"></label>
+        <select asp-for="ShowtimeId" class="form-control" asp-items="@(new SelectList(ViewBag.Showtimes, "Id", "DisplayName"))">
+            <option value="">Select a Showtime</option>
+        </select>
+        <span asp-validation-for="ShowtimeId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CustomerName" class="control-label"></label>
+        <input asp-for="CustomerName" class="form-control" />
+        <span asp-validation-for="CustomerName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NumberOfTickets" class="control-label"></label>
+        <input asp-for="NumberOfTickets" class="form-control" type="number" min="1" max="10" />
+        <span asp-validation-for="NumberOfTickets" class="text-danger"></span>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Create Ticket</button>
+    </div>
+</form>
+<br />
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
